@@ -5,11 +5,135 @@
     <title> ecommerce </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-
-
+<style>
+  .box {
+    margin: 20px;
+    padding: 30px;
+    border: solid 10px red;
+  }
+  .welcome {
+    margin: 30px;
+    padding: 1px;
+    background-color: #562963;
+  }
+  .navbar {
+    border: solid 2px black;
+    margin: 15px;
+    padding: 5px;
+  }
+  .row {
+    border: solid 2px black;
+    margin: 30px;
+    padding: 5px;
+  }
+  .kanan {
+    border: solid 2px black;
+  }
+  .tengah {
+    border: solid 2px black;
+  }
+  .kiri {
+    border: solid 2px black;
+  }
+</style>
   </head>
+
   <body>
+    <div style="max-width:1200px; margin:0auto; height:200px;">
+      <div class="container-fluid">
+
+        <nav class="navbar navbar-inverse">
+          <ul class="nav navbar-nav">
+            <li><a href="#">best item</a></li>
+            <li><a href="#">most popular</a><li>
+            <li><a href="#">best item</a></li>
+            <li><a href="#">most popular</a><li>
+          </ul>
+        </nav>
+
+
+          <div class="col-md-11 welcome text-center">
+              <h2>WELCOME TO JEDI BOOK STORE </h2>
+          </div>
+
+
+        <div class="container">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="img/bannerA.jpg" alt="Los Angeles" style="width:100%;">
+      </div>
+
+      <div class="item">
+        <img src="img/bannerB.jpg" alt="Chicago" style="width:100%;">
+      </div>
+
+      <div class="item">
+        <img src="img/bannerC.jpg" alt="New york" style="width:100%;">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+<!-- disini buat tempat munculin produk n deskripsi + buy button -->
+        <div class="row">
+          <div class="col-md-4 kanan">
+              <h2> product A  </h2>
+          </div>
+
+
+
+          <div class="col-md-4 tengah">
+              <h2> product lain B  </h2>
+          </div>
+
+          <div class="col-md-4 kiri">
+              <h2> product lain C  </h2>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  $('.carousel').carousel({
+    interval: 3000
+  })
+</script>
 
   </body>
 </html>
