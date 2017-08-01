@@ -202,8 +202,8 @@ li {
       <nav class="navbar navbar-inverse">
         <ul class="nav navbar-nav">
           <li><a href="#">list of categories</a></li>
-          <li><a href="#">list all books</a><li>
-          <li><a href="#">best book</a></li>
+          <li><a href="#">list all items</a><li>
+          <li><a href="#">best item</a></li>
           <li><a href="#">most popular</a><li>
         </ul>
       </nav>
@@ -268,19 +268,18 @@ yg kt perlu paling data => yg ada di db si book kt tampilin -->
 
 <!-- klo sudah ngerti baru lanjut ada referensi atau gabung dgn data lain -->
 
-      <!-- <div id="app">
+      <div id="app">
         <div class="row">
           <div class="panel panel-info col-md-4" v-for="book in books">
             <div class="panel-heading"> {{ book.title }} {{ book.author }} </div>
             <div class="panel-body">{{ book.description }}</div>
             <div class="panel-footer">{{ book.price }} BUY NOW <a href="http://localhost:8080/bayar">buy here</a></div>
-          </div>
-        </div>
-      </div> -->
-        <!-- disini kudu di simpen id buku tersebut ke cookies / local storage dulu
+<!-- disini kudu di simpen id buku tersebut ke cookies / local storage dulu
 setelah itu baru deh di halaman selanjutnya dipanggil local storage itu
 dan bisa utk nampilin buku yg dipilih tersebut..  -->
-
+          </div>
+        </div>
+      </div>
           <!-- <div id="app">
             <ol>
               <li v-for="book in books">
@@ -298,54 +297,59 @@ dan bisa utk nampilin buku yg dipilih tersebut..  -->
     <h2>Add to cart Books</h2>
     <div>
       <button @click="showCart = !showCart" v-show="!verified">
-        Your Item:
-        {{ carts.length + (books.length > 1 || books.length === 0 ? " books" : " book") }}
+        {{ items.length + (items.length > 1 || items.length === 0 ? " items" : " item") }}
       </button>
     </div>
   </div>
-  <!-- pake reduce utk munculin book quantity -->
 
   <div class="cart" v-show="showCart">
-    <div v-show="books.length > 0">
+    <div v-show="items.length > 0">
       <ul>
-        <li v-for="book in carts" transition="fade">
-          <p><strong>{{ book.quantity }}</strong> - {{ book.title }} <i class="fa fa-trash" @click="removeFromCart(book)"></i></p>
+        <li v-for="item in items" transition="fade">
+          <p><strong>{{ item.quantity }}</strong> - {{ item.name }} <i class="fa fa-trash" @click="removeFromCart(item)"></i></p>
         </li>
       </ul>
       <div><button @click="verified = true, showCart = false">Check out</button></div>
     </div>
-    <div v-show="books.length === 0">
+    <div v-show="items.length === 0">
       <p>Your cart is empty!</p>
     </div>
   </div>
-
-
   <div class="container">
-    <div class="book" v-show="!verified">
+    <div class="shop" v-show="!verified">
       <h3>New Arrivals</h3>
-      <div class="row">
-        <div class="panel panel-info col-md-4" v-for="book in books">
-          <div class="panel-heading"> {{ book.title }} {{ book.author }} </div>
-          <div class="panel-body">{{ book.description }}</div>
-          <div class="panel-footer">{{ book.price }}</div>
-          <button @click="addToCart(book)">Add to cart</button>
-        </div>
-      </div>
+      <ul>
+        <li v-for="item in shop">
+          <div>
+            <h5>{{ item.name }}</h5>
+            <p>${{ item.price }}</p>
+            <button @click="addToCart(item)">Add to cart</button>
+          </div>
+        </li>
+      </ul>
     </div>
     <div class="checkout" v-show="verified">
       <h3>Your Cart</h3>
-      <h5 v-for="book in books"><strong>{{ book.quantity }}</strong> - {{ book.name }}<span>${{ book.price * book.quantity }}</span></h5>
+      <h5 v-for="item in items"><strong>{{ item.quantity }}</strong> - {{ item.name }}<span>${{ item.price * item.quantity }}</span></h5>
       <hr />
       <div class="row">
         <div class="u-pull-right">
           <h5>Total: <span>{{ total | currency }}</span></h5>
           <button>Looks Good</button>
-          <!-- ini nanti ke thankyou page -->
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
 
 
           <!-- bisa ntar di bawah jg ( pake js )
@@ -377,50 +381,8 @@ dan bisa utk nampilin buku yg dipilih tersebut..  -->
 //     title: 'ini title'
 //   }
 // })
-// var app = new Vue({
-//   el: '#app',
-//   created: function() {
-//     var isiApp = this
-//     axios.get('http://localhost:3000/books')
-//     .then((response) => {
-//       isiApp.books = response.data
-//     })
-//   },
-//   data: {
-//     books: []
-//   }
-// })
-//=================
-// const shop = [
-//   {
-//     name: "One-Punch Man, Vol. 5",
-//     price: 10.02,
-//     quantity: 0
-//   },
-//   {
-//     name: "Batman '66, Vol. 5",
-//     price: 9.98,
-//     quantity: 0
-//   },
-//   {
-//     name: "Dragon Ball Freeza Arc, Vol. 1",
-//     price: 15.98,
-//     quantity: 0
-//   },
-//   {
-//     name: "Uzumaki: Spiral into Horror, Vol. 1",
-//     price: 4.84,
-//     quantity: 0
-//   },
-//   {
-//     name: "Superman: Red Son (New Edition)",
-//     price: 10.93,
-//     quantity: 0
-//   }
-// ];
-
-const vm = new Vue({
-  el: "#apps",
+var app = new Vue({
+  el: '#app',
   created: function() {
     var isiApp = this
     axios.get('http://localhost:3000/books')
@@ -429,42 +391,68 @@ const vm = new Vue({
     })
   },
   data: {
-    books: [],
-    //shop: shop,
+    books: []
+  }
+})
+//=================
+const shop = [
+  {
+    name: "One-Punch Man, Vol. 5",
+    price: 10.02,
+    quantity: 0
+  },
+  {
+    name: "Batman '66, Vol. 5",
+    price: 9.98,
+    quantity: 0
+  },
+  {
+    name: "Dragon Ball Freeza Arc, Vol. 1",
+    price: 15.98,
+    quantity: 0
+  },
+  {
+    name: "Uzumaki: Spiral into Horror, Vol. 1",
+    price: 4.84,
+    quantity: 0
+  },
+  {
+    name: "Superman: Red Son (New Edition)",
+    price: 10.93,
+    quantity: 0
+  }
+];
+
+const vm = new Vue({
+  el: "#apps",
+  data: {
+    items: [],
+    shop: shop,
     showCart: false,
-    verified: false,
-    carts: []
+    verified: false
   },
   computed: {
     total() {
       var total = 0;
-      for(var i = 0; i < this.books.length; i++) {
-        total += this.books[i].price;
+      for(var i = 0; i < this.items.length; i++) {
+        total += this.items[i].price;
       }
       return total;
     }
   },
   methods: {
-    addToCart(book) {
-      if(this.carts.length === 0) {
-        this.carts.push(book);
-        console.log(this.carts);
-      } else {
-        // this.carts.push(book.quantity)
-        book.quantity += 1;
-      }
-      // book.quantity += 1;
-      // this.carts.push(book);
-      // klo datanya blm ada.. maka push
-      // tp klo datanya sudah ada,, tinggal tambah quantity nya..
+    addToCart(item) {
+      item.quantity += 1;
+      this.items.push(item);
     },
-    removeFromCart(book) {
-      book.quantity -= 1;
-      this.carts.splice(this.carts.indexOf(book), 1);
+    removeFromCart(item) {
+      item.quantity -= 1;
+      this.items.splice(this.items.indexOf(item), 1);
     }
   }
 });
 //=================
+
 
 
   $('.carousel').carousel({
